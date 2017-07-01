@@ -4,14 +4,12 @@ fun main(args: Array<String>) {
     print("Enter the world to guess: ")
     val word = readLine()
 
-    if ((word !is String) and (word.isNullOrEmpty())) {
-        println("No word given, game ended.")
-        return
-    } else {
-        startGame(word!!)
+    when ((word !is String) and (word.isNullOrEmpty())) {
+        true -> println("No word given, game ended."); else -> startGame(word?.toLowerCase()!!)
     }
 }
 
+@Suppress("UNREACHABLE_CODE")
 fun startGame(word: String) {
     for (i in 1..1000) println()
 
@@ -19,23 +17,21 @@ fun startGame(word: String) {
     val correctGuesses = mutableSetOf<Char>()
     var fails = 0
 
-    while (letters != correctGuesses) {
+    loop@ while (letters != correctGuesses) {
         printExploredWord(word, correctGuesses)
         println("\n#Wrong guesses: $fails\n")
 
         print("Guess latter: ")
         val input = readLine()
-        if (input.isNullOrEmpty()) {
-            continue
-        } else if (input?.length!! > 1) {
-            println("Please enter one latter!")
-            continue
-        }
-
-        if (word.toLowerCase().contains(input.toLowerCase())) {
-            correctGuesses.add(input[0].toLowerCase())
-        } else {
-            ++fails
+        when (input?.length!! > 1 || input.isNullOrEmpty()) {
+            true -> {
+                println("Please enter one latter!");++fails;continue@loop
+            }
+            else -> {
+                when (word.toLowerCase().contains(input.toLowerCase())) {
+                    true -> correctGuesses.add(input[0].toLowerCase());else -> ++fails
+                };continue@loop
+            }
         }
     }
 
@@ -44,12 +40,6 @@ fun startGame(word: String) {
     println("Well done")
 }
 
-fun printExploredWord(word: String, correctGuesses: Set<Char>) {
-    for (character in word.toLowerCase()) {
-        if (correctGuesses.contains(character)) {
-            print(character + " ")
-        } else {
-            print("_ ")
-        }
-    }
+fun printExploredWord(word: String, correctGuesses: Set<Char>) = word.forEach {
+    if (correctGuesses.contains(it)) print(it + " "); else print("_ ")
 }
