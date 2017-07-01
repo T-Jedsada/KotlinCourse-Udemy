@@ -32,6 +32,7 @@ fun main(args: Array<String>) {
     val car = Car(Color.YELLOW)
     car.drive()
     println(car.color)
+    println(car.color.containsRed())
 
     val motorcycle: Driveable = Motorcycle("Red")
     motorcycle.drive()
