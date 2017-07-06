@@ -1,29 +1,22 @@
 
-open class Animal(var name: String) {
 
-    fun speak(sound: String) = println(sound)
-
-    fun run() = println("$name running")
+open class Human {
+    fun speak() {
+        // TODO : somethings
+    }
 }
 
-class Cat(name: String) : Animal(name)
-
-class Dog(name: String) : Animal(name) {
-
-    fun eat() = println("$name eating")
+interface Humanable {
+    fun run()
 }
 
-fun main(args: Array<String>) {
-
-    val peak = Cat("Peak")
-    peak.speak("Kim...")
-    peak.run()
-
-    val dang = Dog("Dang")
-    dang.speak("Mint")
-    dang.run()
-    dang.eat()
+class Employee : Human(), Humanalbe {
+    override fun run() {
+        // TODO : somethings
+    }
 }
+
+
 
 
 
